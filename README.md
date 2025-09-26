@@ -175,7 +175,3 @@ This project builds upon several open-source technologies:
 - Various scientific image format libraries
 
 ---
-
----
-
-*The READMEs for Projects 3 and 4 follow the same comprehensive format with detailed architecture descriptions, usage examples, and deployment guides, but without code implementation snippets.*
