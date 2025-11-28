@@ -1,51 +1,44 @@
-BioScience Engine - High-Performance Computational Microscopy
+# BioScience Engine - Computational Microscopy Analysis
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
-[![C++](https://img.shields.io/badge/C++-17-red.svg)](https://isocpp.org)
-[![Cython](https://img.shields.io/badge/Cython-0.29+-lightblue.svg)](https://cython.org)
+[![OpenCV](https://img.shields.io/badge/OpenCV-4.5+-green.svg)](https://opencv.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-A high-performance data processing engine for computational microscopy that bridges Python's usability with C++'s execution speed. Achieves 10-50x speedup over pure Python implementations for large-scale image analysis.
+A comprehensive computational microscopy platform for automated cell tracking and analysis across diverse biological research domains. Built on Python with OpenCV, NumPy, SciPy, and Pandas for seamless integration into scientific workflows.
 
-## 🚀 Key Features
+## Key Features
 
-- **Multi-threaded cell detection** using computer vision algorithms
-- **Real-time image processing** for large TIFF/ND2 files (1GB+)
-- **Seamless Python API** with C++ performance backend
-- **Automatic memory management** between language boundaries
-- **Extensible pipeline architecture** for custom analysis workflows
+- Automated cell detection and tracking across time-lapse sequences
+- Multi-channel fluorescence analysis for protein expression and localization
+- Cell division and apoptosis detection for proliferation studies
+- Advanced morphology analysis quantifying shape and structural features
+- Interactive visualization tools for result validation and exploration
+- Batch processing capabilities for high-throughput screening
 
-## 🏗️ Architecture Overview
+## Primary Applications
 
-The system employs a three-layer architecture designed for maximum performance and usability:
+### Cancer Research
+Track tumor cell migration, metastasis patterns, drug response testing, and quantify cell division rates under different treatment conditions.
 
-```mermaid
-graph TB
-    A[Python Script] --> B[Cython Binding Layer]
-    B --> C[C++ Core Engine]
-    C --> D[Eigen Math Library]
-    C --> E[OpenMP Threading]
-    C --> F[Custom Memory Pool]
-    
-    G[TIFF/ND2 Images] --> H[Image Loader]
-    H --> I[Pre-processing]
-    I --> J[Cell Detection]
-    J --> K[Tracking Algorithm]
-    K --> L[Results CSV]
-```
+### Drug Discovery & Development
+Automate high-throughput screening, generate dose-response curves, assess toxicity, and measure time-to-effect for compound evaluation.
 
-### Layer Breakdown
+### Stem Cell Research
+Monitor differentiation processes, track colony formation patterns, trace cell lineages, and ensure quality control in biomanufacturing.
 
-1. **Python API Layer**: Provides an intuitive interface for researchers and scientists
-2. **Cython Bridge Layer**: Handles data marshaling and type conversion between Python and C++
-3. **C++ Computation Engine**: Implements performance-critical algorithms using modern C++17 features
+### Immunology Studies
+Analyze T-cell migration, study cell-cell interactions, monitor inflammatory responses, and evaluate vaccine efficacy.
 
-## 📦 Installation
+### Wound Healing & Regeneration
+Measure cell migration speeds, study collective cell movement patterns, and test tissue repair strategies.
 
-### Prerequisites
-- GCC 9.0+ or Clang 10.0+
-- Python 3.8+
-- CMake 3.15+
+### Neuroscience
+Track neuron development, monitor synaptic plasticity, study neurodegeneration progression, and test neuroprotective compounds.
+
+### Microbiology
+Analyze bacterial growth dynamics, study antibiotic resistance, track cell division patterns, and monitor biofilm formation.
+
+## Installation
 
 ```bash
 git clone https://github.com/yourusername/bioscience-engine
@@ -53,12 +46,19 @@ cd bioscience-engine
 pip install -e .
 ```
 
-## 💻 Usage Example
+### Dependencies
+- OpenCV 4.5+
+- NumPy 1.21+
+- SciPy 1.7+
+- Pandas 1.3+
+- Matplotlib 3.4+
+
+## Usage Example
 
 ```python
 import bioscience_engine as bio
 
-# Create and configure pipeline
+# Load and analyze time-lapse data
 pipeline = bio.Pipeline()
 pipeline.load_images("experiment_01/")
 pipeline.set_parameters(
@@ -66,112 +66,97 @@ pipeline.set_parameters(
     detection_threshold=0.8
 )
 
-# Execute analysis
-pipeline.denoise()          # C++ accelerated
-pipeline.detect_cells()     # Multi-threaded C++
-trajectories = pipeline.track_cells()  # Custom tracking algorithm
+# Execute complete analysis workflow
+pipeline.denoise()
+pipeline.detect_cells()
+trajectories = pipeline.track_cells()
 
-# Save results
-trajectories.to_csv("cell_movements.csv")
+# Access comprehensive results
 print(f"Tracked {len(trajectories)} cells across {trajectories.time_points} frames")
+print(f"Detected {trajectories.division_events} cell divisions")
+print(f"Identified {trajectories.apoptosis_events} cell death events")
+
+# Export for further analysis
+trajectories.export_csv("cell_analysis_results.csv")
+trajectories.generate_report("experiment_summary.pdf")
 ```
 
-## 🔧 Technical Implementation
+## Analysis Pipeline
 
-### Core Components
+The platform provides a complete workflow for computational microscopy:
 
-#### 1. Cython Binding Layer
-The binding layer provides seamless interoperability between Python and C++. It handles:
-- Automatic NumPy array conversion to C++ matrices
-- Memory management across language boundaries
-- Exception translation between C++ and Python
-- Thread safety for concurrent operations
-
-#### 2. C++ Processing Engine
-The engine implements several key algorithms:
-- **Adaptive thresholding** for cell detection in varying conditions
-- **Multi-scale blob detection** for identifying cells of different sizes
-- **Kalman filter-based tracking** for robust cell trajectory analysis
-- **Parallel image processing** using OpenMP for multi-core utilization
-
-#### 3. Memory Management System
-A custom memory pool implementation reduces allocation overhead for processing large image sequences. The system:
-- Pre-allocates buffers for common operation sizes
-- Implements reference counting for shared data
-- Provides automatic cleanup for temporary objects
-
-## 📊 Performance Benchmarks
-
-| Dataset Size | Pure Python | BioScience Engine | Speedup |
-|--------------|-------------|-------------------|---------|
-| 100 MB       | 45.2s       | 1.8s              | 25x     |
-| 1 GB         | 452s        | 15.3s             | 29.5x   |
-| 5 GB         | 2260s       | 68.4s             | 33x     |
-
-### Memory Efficiency
-- **Peak memory usage**: 1.2x input size (compared to 3-4x for pure Python)
-- **Memory fragmentation**: Minimal due to custom allocator
-- **Cache efficiency**: Optimized data layout for SIMD operations
-
-## 🧪 Testing Strategy
-
-### Unit Testing
-- Python API tests using pytest
-- C++ core functionality tests with Google Test
-- Integration tests for cross-language functionality
-
-### Performance Validation
-- Benchmark comparisons against scikit-image and OpenCV
-- Memory usage profiling under load
-- Multi-threading correctness verification
-
-### Data Validation
-- Comparison against manual cell counting by domain experts
-- Consistency testing across different microscopy formats
-- Edge case handling (empty images, noise artifacts)
-
-## 🚀 Deployment Options
-
-### Development Installation
-```bash
-pip install -e .[dev]  # Includes development dependencies
+```
+Image Loading -> Preprocessing -> Cell Detection -> Tracking -> Feature Extraction -> Visualization
+       |              |              |            |             |                  |
+   Multiple      Denoising      Segmentation  Trajectory    Morphology      Interactive
+   Formats       Registration   Multi-scale   Linking       Statistics      Plots & Videos
 ```
 
-### Production Deployment
-```bash
-pip install bioscience-engine  # PyPI package
-```
+### Core Analysis Modules
 
-### Docker Container
-```dockerfile
-FROM python:3.9-slim
-RUN pip install bioscience-engine
-COPY analysis_scripts/ /app/
-```
+- Cell Detection: Multi-scale segmentation adapting to varying cell sizes and densities
+- Tracking Algorithm: Robust trajectory linking handling cell divisions and apoptosis
+- Morphology Analysis: Quantitative shape descriptors including area, circularity, eccentricity
+- Multi-channel Analysis: Fluorescence quantification and colocalization studies
+- Statistical Analysis: Built-in hypothesis testing and effect size calculations
 
-## 🤝 Contributing
+## Advanced Capabilities
+
+### Cell Division Detection
+Automatically identify mitosis events and establish parent-daughter relationships with precise timing of division events.
+
+### Apoptosis Detection
+Monitor cell death through shrinkage, membrane blebbing, intensity changes, and fragmentation patterns.
+
+### Multi-Channel Support
+Analyze fluorescence across brightfield, GFP, RFP, DAPI and other channels for comprehensive protein expression studies.
+
+### Interactive Correction Tools
+User-friendly interface for manual track editing, cell addition/deletion, and result validation.
+
+## Output & Export
+
+- Trajectory Data: Complete cell tracks with speed, direction, and persistence metrics
+- Event Logs: Division and apoptosis events with timing and confidence scores
+- Morphology Reports: Quantitative shape analysis for each cell over time
+- Statistical Summaries: Condition comparisons with p-values and effect sizes
+- Visualization: Track overlays, migration plots, and event annotations
+- Multiple Formats: CSV, Excel, HDF5 for integration with other analysis tools
+
+## Designed for Researchers
+
+### Biologist-Friendly
+- Intuitive Python API requiring minimal programming experience
+- Interactive GUI for manual correction and exploration
+- Comprehensive documentation with example datasets
+- Pre-configured analysis pipelines for common experiments
+
+### Computational Flexibility
+- Modular architecture for custom analysis workflows
+- Easy integration with existing Python scientific stacks
+- Extensible framework for adding new algorithms
+- Compatibility with common microscopy data formats
+
+## Contributing
 
 We welcome contributions from the scientific community. Please see our contributing guidelines for:
+- Code standards following PEP 8
+- Testing requirements for new features
+- Documentation updates
+- Example datasets and use cases
 
-1. **Code Standards**: Follow PEP 8 for Python and Google C++ Style Guide
-2. **Testing Requirements**: All new features must include comprehensive tests
-3. **Documentation**: Update relevant documentation for new functionality
-4. **Performance**: Validate that changes maintain or improve performance
-
-## 📄 License
+## License
 
 MIT License - see LICENSE file for complete details.
 
-## 👥 Authors
+## Authors
 
-- **Elijah Manda** - *Initial architecture and core implementation*
+- Elijah Manda - Initial implementation and core architecture
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-This project builds upon several open-source technologies:
-- Eigen library for linear algebra operations
-- OpenMP for parallel processing
-- NumPy for array interoperability
-- Various scientific image format libraries
+This project builds upon open-source scientific Python libraries including OpenCV, NumPy, SciPy, Pandas, and the broader scientific Python ecosystem.
 
 ---
+
+Empowering biological discovery through computational microscopy

@@ -1,0 +1,11 @@
+,value
+min_cell_size,80
+max_cell_size,600
+detection_threshold,0.6
+detection_method,hybrid
+tracking_max_distance,60.0
+tracking_max_age,5
+tracking_min_hits,3
+denoise_kernel,3
+enhance_contrast,True
+clahe_clip_limit,2.0
