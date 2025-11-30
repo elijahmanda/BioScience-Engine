@@ -41,6 +41,10 @@ Analyze bacterial growth dynamics, study antibiotic resistance, track cell divis
 ## Installation
 
 ```bash
+# Prebuilt binary
+pip install bioscience-engine
+
+# From source
 git clone https://github.com/yourusername/bioscience-engine
 cd bioscience-engine
 pip install -e .
