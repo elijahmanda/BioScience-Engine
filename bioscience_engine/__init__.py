@@ -1,6 +1,5 @@
 """
-BioScience Engine - Pure Python Implementation
-High-performance computational microscopy with OpenCV
+BioScience Engine - Computational microscopy with OpenCV
 """
 
 from .pipeline import Pipeline, Trajectory

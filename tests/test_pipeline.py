@@ -75,17 +75,3 @@ def test_tracking():
     
     assert len(tracker.tracks) == 3
 
-
-print("\n" + "="*70)
-print("BioScience Engine - Pure Python Implementation")
-print("="*70)
-print("\n✓ Complete library structure created!")
-print("\nKey Features:")
-print("  • Pure Python with OpenCV - no C++ compilation needed")
-print("  • Multiple detection methods: blob, watershed, contour, hybrid")
-print("  • Kalman filter-based tracking with Hungarian algorithm")
-print("  • Video export and visualization")
-print("  • Comprehensive statistics and export")
-print("\nUsage:")
-print("  python examples/basic_analysis.py")
-print("\n" + "="*70)
