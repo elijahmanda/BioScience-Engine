@@ -5,9 +5,8 @@ Detailed shape and structure analysis for cell characterization
 
 import numpy as np
 import cv2
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional
 from dataclasses import dataclass, asdict
-from sklearn.decomposition import PCA
 
 
 @dataclass
